@@ -1,3 +1,42 @@
+# llama2.c — CPU Inference Benchmarking
+
+Fork of [karpathy/llama2.c](https://github.com/karpathy/llama2.c), a ~700-line C inference engine for LLaMA 2, used to measure how compiler-level optimisation affects inference throughput on CPU.
+
+## Results
+
+| Build | Compiler flags | Throughput |
+|---|---|---|
+| Baseline | `[e.g. -O3]` | 208 tok/s |
+| Optimised | `-Ofast -march=native` | 947 tok/s |
+
+**Speedup: 4.5×**
+
+Test setup: [CPU model] · [OS] · model `[e.g. stories15M.bin]` · [N] runs per build, mean reported.
+
+## Reproduce
+
+```bash
+# Baseline
+gcc [-O3] -o run run.c -lm
+./run [model].bin -t 0.0
+
+# Optimised
+gcc -Ofast -march=native -o run run.c -lm
+./run [model].bin -t 0.0
+```
+
+Throughput is the tok/s figure printed at the end of each run. `-t 0.0` uses greedy decoding so both builds generate from the same deterministic settings.
+
+## Why it is faster
+
+- `-march=native` lets the compiler target the full instruction set of the host CPU (e.g. AVX2), so the loops in `matmul()` — where most inference time is spent — are vectorised more widely.
+- `-Ofast` enables `-ffast-math`, which lets the compiler reorder floating-point operations such as the dot-product reductions, making further vectorisation possible.
+
+## Trade-off
+
+`-ffast-math` gives up strict IEEE 754 semantics, so results are not guaranteed to be bit-identical to the baseline.
+
+[Accuracy check: compare the generated text of both builds with the same prompt and `-t 0.0`, and note here whether the outputs differ.]
 ## llama2.c
 
 <p align="center">
