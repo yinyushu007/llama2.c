@@ -1,0 +1,21 @@
+build,flags,run,tok_s
+O3,-O3,1,98.925694
+O3,-O3,2,100.317749
+O3,-O3,3,99.819332
+O3,-O3,4,97.744361
+O3,-O3,5,96.128752
+O3-native,-O3 -march=native,1,100.317749
+O3-native,-O3 -march=native,2,100.317749
+O3-native,-O3 -march=native,3,100.363306
+O3-native,-O3 -march=native,4,100.408905
+O3-native,-O3 -march=native,5,100.272232
+Ofast,-Ofast,1,369.565217
+Ofast,-Ofast,2,375.850340
+Ofast,-Ofast,3,380.378657
+Ofast,-Ofast,4,381.692573
+Ofast,-Ofast,5,380.378657
+Ofast-native,-Ofast -march=native,1,368.333333
+Ofast-native,-Ofast -march=native,2,401.088929
+Ofast-native,-Ofast -march=native,3,375.850340
+Ofast-native,-Ofast -march=native,4,381.034483
+Ofast-native,-Ofast -march=native,5,380.378657

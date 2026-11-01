@@ -1,0 +1,13 @@
+cpu=Apple M4
+os=macOS 26.3.1
+compiler=Apple clang version 17.0.0 (clang-1700.6.4.2)
+physical_cores=10
+logical_cores=10
+model=stories15M.bin
+runs=5
+steps=256
+prompt=Once upon a time
+native_flag=-march=native
+fast_build=Ofast-native
+accuracy=identical
+omp=yes
